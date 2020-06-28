@@ -8,7 +8,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 
 /* -------------------------- Internal Dependencies ------------------------- */
-import Home from 'pages';
+import Home from 'pages/Home';
+import Signin from 'pages/signin';
+import Register from 'pages/register';
 import ErrorBoundary from 'components/error-boundary';
 
 /* ---------------------------- Routes PropTypes ---------------------------- */
@@ -27,6 +29,8 @@ const Routes = ({ location }) => (
 				>
 					<Switch location={location}>
 						<Route exact path="/" component={Home} />
+						<Route exact path="/signin" component={Signin} />
+						<Route exact path="/register" component={Register} />
 					</Switch>
 				</CSSTransition>
 			</TransitionGroup>
