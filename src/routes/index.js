@@ -12,6 +12,7 @@ import Home from 'pages/Home';
 import Signin from 'pages/signin';
 import Register from 'pages/register';
 import ErrorBoundary from 'components/error-boundary';
+import Chat from 'pages/Chat';
 
 /* ---------------------------- Routes PropTypes ---------------------------- */
 const propTypes = {
@@ -31,6 +32,7 @@ const Routes = ({ location }) => (
 						<Route exact path="/" component={Home} />
 						<Route exact path="/signin" component={Signin} />
 						<Route exact path="/register" component={Register} />
+						<Route exact path="/chat" component={Chat} />
 					</Switch>
 				</CSSTransition>
 			</TransitionGroup>
