@@ -18,11 +18,17 @@ const Wrapper = styled.div`
 `;
 
 export default function Button(props) {
-	const { children } = props;
+	const { children, loading = false } = props;
 	return (
 		<Wrapper>
-			<button {...props} className="keek-button" type="button" data-cy="btn">
-				{children}
+			<button
+				{...props}
+				loading={loading.toString()}
+				className="keek-button"
+				type="submit"
+				data-cy="btn"
+			>
+				{loading ? 'Loading...' : children}
 			</button>
 		</Wrapper>
 	);
@@ -30,4 +36,5 @@ export default function Button(props) {
 
 Button.propTypes = {
 	children: PropTypes.node,
+	loading: PropTypes.bool,
 };

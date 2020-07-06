@@ -1,16 +1,23 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
 /* -------------------------------------------------------------------------- */
 /*                            External Dependencies                           */
 /* -------------------------------------------------------------------------- */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Formik } from 'formik';
+import { Link, withRouter } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import styled from 'styled-components';
+import * as yup from 'yup';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 /* -------------------------------------------------------------------------- */
 /*                            Internal Dependencies                           */
 /* -------------------------------------------------------------------------- */
 import Button from '../../Button';
 import KeekLogo from '../../Logo';
+import { registerUserAction } from '../../../actions/auth';
 
 const Wrapper = styled.div`
 	.register-form {
@@ -42,7 +49,35 @@ const Wrapper = styled.div`
 	}
 `;
 
-const RegisterForm = () => {
+const initalState = {
+	fullName: '',
+	email: '',
+	username: '',
+	password: '',
+};
+
+const schema = yup.object({
+	fullName: yup.string().required(),
+	username: yup.string().required(),
+	email: yup
+		.string()
+		.email()
+		.required(),
+	password: yup
+		.string()
+		.trim()
+		.matches(
+			/^[a-zA-Z0-9]{8,30}$/,
+			'Password must contain at least 8 chatacters including, UPPERCASE, lowercase and numbers'
+		)
+		.min(8)
+		.required(),
+});
+
+const RegisterForm = ({ registerUser, loading, history }) => {
+	const submitRegistrationForm = (values) => {
+		registerUser(values, history);
+	};
 	return (
 		<Wrapper>
 			<div className="register-form">
@@ -50,36 +85,119 @@ const RegisterForm = () => {
 					<KeekLogo />
 				</div>
 				<div className="register-form-text">Create an account</div>
-				<Form>
-					<Form.Group controlId="formBasicFullName">
-						<Form.Control type="text" placeholder="Full Name" />
-					</Form.Group>
+				<Formik
+					initialValues={initalState}
+					onSubmit={submitRegistrationForm}
+					validationSchema={schema}
+				>
+					{({
+						handleChange,
+						handleSubmit,
+						handleBlur,
+						values,
+						touched,
+						errors,
+						isValid,
+					}) => (
+						<Form noValidate onSubmit={(e) => handleSubmit(e)}>
+							<Form.Group controlId="formBasicFullName">
+								<Form.Control
+									value={values.fullName}
+									onChange={handleChange}
+									name="fullName"
+									type="text"
+									placeholder="Full Name"
+									isInvalid={touched.fullName && !!errors.fullName}
+									onBlur={handleBlur}
+								/>
+								<Form.Control.Feedback type="invalid">
+									{errors.fullName}
+								</Form.Control.Feedback>
+							</Form.Group>
 
-					<Form.Group controlId="formBasicEmail">
-						<Form.Control type="email" placeholder="Email" />
-					</Form.Group>
+							<Form.Group controlId="formBasicEmail">
+								<Form.Control
+									value={values.email}
+									onChange={handleChange}
+									name="email"
+									type="email"
+									placeholder="Email"
+									isInvalid={touched.email && !!errors.email}
+									onBlur={handleBlur}
+								/>
+								<Form.Control.Feedback type="invalid">
+									{errors.email}
+								</Form.Control.Feedback>
+							</Form.Group>
 
-					<Form.Group controlId="formBasicUserName">
-						<Form.Control type="text" placeholder="Username" />
-					</Form.Group>
+							<Form.Group controlId="formBasicUserName">
+								<Form.Control
+									value={values.username}
+									onChange={handleChange}
+									name="username"
+									type="text"
+									placeholder="Username"
+									isInvalid={touched.username && !!errors.username}
+									onBlur={handleBlur}
+								/>
+								<Form.Control.Feedback type="invalid">
+									{errors.username}
+								</Form.Control.Feedback>
+							</Form.Group>
 
-					<Form.Group controlId="formBasicPassword">
-						<Form.Control type="password" placeholder="Password" />
-					</Form.Group>
+							<Form.Group controlId="formBasicPassword">
+								<Form.Control
+									value={values.password}
+									onChange={handleChange}
+									name="password"
+									type="password"
+									placeholder="Password"
+									isInvalid={touched.password && !!errors.password}
+									onBlur={handleBlur}
+								/>
+								<Form.Control.Feedback type="invalid">
+									{errors.password}
+								</Form.Control.Feedback>
+							</Form.Group>
 
-					<div className="register-btn">
-						<Button variant="primary" type="submit">
-							Register
-						</Button>
-					</div>
+							<div className="register-btn">
+								<Button
+									loading={loading}
+									disabled={!isValid}
+									variant="primary"
+									type="submit"
+								>
+									Register
+								</Button>
+							</div>
 
-					<div className="sign-in-option">
-						Already have an account? <Link to="/signin">Login</Link>
-					</div>
-				</Form>
+							<div className="sign-in-option">
+								Already have an account? <Link to="/signin">Login</Link>
+							</div>
+						</Form>
+					)}
+				</Formik>
 			</div>
 		</Wrapper>
 	);
 };
 
-export default RegisterForm;
+const mapStateToProps = ({ auth }) => {
+	return {
+		loading: auth.loading,
+	};
+};
+
+const mapDispatchToProps = {
+	registerUser: registerUserAction,
+};
+
+RegisterForm.propTypes = {
+	registerUser: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withRouter(RegisterForm));
