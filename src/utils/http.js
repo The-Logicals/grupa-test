@@ -9,8 +9,9 @@ const http = () => {
 	if (typeof localStorage !== 'undefined') {
 		token = localStorage.getItem('jwtToken');
 	}
+
 	const axiosInstance = axios.create({
-		baseURL: `${process.env.API_BASE_URL}`,
+		baseURL: 'https://keek-api.herokuapp.com/v1/',
 		headers: {
 			Authorization: `Bearer ${token}`,
 			accept: 'application/json',
@@ -27,10 +28,10 @@ const http = () => {
 	const unauthorizedRequestInterceptor = (error) => {
 		if (error.message === 'Network Error') {
 			//  handle Network errors;
-			console.log('Error');
+			console.log('Network Error');
 		}
 
-		if (error.response.status === 401) {
+		if (error && error.response && error.response.status === 401) {
 			// handle Unauthorized errors
 			console.log('401: ', error.response);
 		}

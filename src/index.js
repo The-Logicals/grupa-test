@@ -4,21 +4,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 /* -------------------------- Internal Dependencies ------------------------- */
 import App from './App';
 import history from './utils/history';
 import * as serviceWorker from './utils/serviceWorker';
+import store from './store';
 
 /* --------------------------- Styles Dependency -------------------------- */
 import './assets/styles/index.css';
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Router history={history}>
-			<App />
-		</Router>
-	</React.StrictMode>,
+	<Provider store={store}>
+		<React.StrictMode>
+			<Router history={history}>
+				<App />
+			</Router>
+		</React.StrictMode>
+	</Provider>,
 	document.getElementById('root')
 );
 
