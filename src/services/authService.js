@@ -23,6 +23,16 @@ const AuthService = {
 	register(userDetails) {
 		return http().post('/auth/register', userDetails);
 	},
+	/**
+	 * verifyuser
+	 *
+	 * @param {*} token payload
+	 *
+	 * @returns error or success message
+	 */
+	verifyuser(token) {
+		return http().get(`/auth/verification?token=${token}`);
+	},
 };
 
 export default AuthService;

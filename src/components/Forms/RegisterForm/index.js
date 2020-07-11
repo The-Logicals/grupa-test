@@ -195,6 +195,7 @@ const mapDispatchToProps = {
 RegisterForm.propTypes = {
 	registerUser: PropTypes.func.isRequired,
 	loading: PropTypes.bool.isRequired,
+	history: PropTypes.objectOf(PropTypes.any),
 };
 
 export default connect(
