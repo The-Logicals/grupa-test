@@ -6,6 +6,8 @@ const initialState = {
 	message: '',
 	error: false,
 	loading: false,
+	verificationMessage: 'Verification Process',
+	verificationStatus: '',
 };
 
 export default (state = initialState, payload) => {
@@ -27,6 +29,23 @@ export default (state = initialState, payload) => {
 				loading: false,
 				error: true,
 				message: payload.error,
+			};
+		case types.VERIFY_USER:
+			return {
+				...state,
+				verificationMessage: payload.verificationMessage,
+			};
+		case types.VERIFY_USER_SUCCESS:
+			return {
+				...state,
+				verificationMessage: payload.verificationMessage,
+				verificationStatus: payload.verificationStatus,
+			};
+		case types.VERIFY_USER_FAILURE:
+			return {
+				...state,
+				verificationMessage: payload.verificationMessage,
+				verificationStatus: payload.verificationStatus,
 			};
 		default:
 			return {
