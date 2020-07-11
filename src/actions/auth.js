@@ -66,3 +66,33 @@ export const verifyUserAction = (token, history) => async (dispatch) => {
 		});
 	}
 };
+
+export const storeUser = (user, token) => ({
+	type: types.LOGIN_USER_SUCCESS,
+	user,
+	token,
+});
+
+export const loginUserAction = (userDetails, history) => async (dispatch) => {
+	try {
+		dispatch({
+			type: types.LOGIN_USER,
+		});
+		const { data } = await authService.login(userDetails);
+
+		// set user details to local storage
+		localStorage.setItem('user', JSON.stringify(data.user));
+		localStorage.setItem('token', data.token);
+
+		storeUser(data.user, data.token);
+		history.push('/chat');
+	} catch (error) {
+		if (error.response) {
+			toast.error(error.response.data.error);
+		}
+		dispatch({
+			type: types.LOGIN_USER_FAILURE,
+			error,
+		});
+	}
+};

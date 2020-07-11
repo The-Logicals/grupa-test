@@ -14,6 +14,7 @@ import Register from 'pages/register';
 import ErrorBoundary from 'components/error-boundary';
 import Chat from 'pages/Chat';
 import Verify from 'pages/Verify';
+import { onlyAuthUsers } from '../components/HOC/onlyAuthUser';
 
 /* ---------------------------- Routes PropTypes ---------------------------- */
 const propTypes = {
@@ -33,8 +34,8 @@ const Routes = ({ location }) => (
 						<Route exact path="/" component={Register} />
 						<Route exact path="/signin" component={Signin} />
 						<Route exact path="/register" component={Register} />
-						<Route exact path="/chat" component={Chat} />
 						<Route exact path="/verify" component={Verify} />
+						<Route exact path="/chat" component={onlyAuthUsers(Chat)} />
 					</Switch>
 				</CSSTransition>
 			</TransitionGroup>
