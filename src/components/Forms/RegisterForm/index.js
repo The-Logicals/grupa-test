@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import Button from '../../Button';
 import KeekLogo from '../../Logo';
 import { registerUserAction } from '../../../actions/auth';
+import authservice from '../../../services/authService';
 
 const Wrapper = styled.div`
 	.register-form {
@@ -78,6 +79,10 @@ const RegisterForm = ({ registerUser, loading, history }) => {
 	const submitRegistrationForm = (values) => {
 		registerUser(values, history);
 	};
+
+	React.useEffect(() => {
+		authservice.isSignedIn() && history.push('/chat');
+	}, []);
 	return (
 		<Wrapper>
 			<div className="register-form">
@@ -99,7 +104,7 @@ const RegisterForm = ({ registerUser, loading, history }) => {
 						errors,
 						isValid,
 					}) => (
-						<Form noValidate onSubmit={(e) => handleSubmit(e)}>
+						<Form noValidate onSubmit={handleSubmit}>
 							<Form.Group controlId="formBasicFullName">
 								<Form.Control
 									value={values.fullName}
