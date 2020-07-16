@@ -8,6 +8,7 @@ import styled from 'styled-components';
 /*                            Internal Dependencies                           */
 /* -------------------------------------------------------------------------- */
 import ChatInterfaceLayout from '../../components/layouts/ChatInterfaceLayout';
+import Contact from '../../components/Contacts';
 
 const Wrapper = styled.div``;
 
@@ -16,7 +17,7 @@ const ChatInterface = () => {
 		<Wrapper>
 			<ChatInterfaceLayout>
 				<div>Header</div>
-				<div>ContactList</div>
+				<Contact />
 				<div>ChatInterface</div>
 			</ChatInterfaceLayout>
 		</Wrapper>
