@@ -10,6 +10,9 @@ const Wrapper = styled.div`
 		height: 37px;
 		border: none;
 		outline: none;
+		color: #fff;
+		font-weight: 800;
+		font-size: 14px;
 	}
 
 	.keek-button:hover {

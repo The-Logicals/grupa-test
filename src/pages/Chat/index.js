@@ -9,6 +9,7 @@ import styled from 'styled-components';
 /* -------------------------------------------------------------------------- */
 import ChatInterfaceLayout from '../../components/layouts/ChatInterfaceLayout';
 import Contact from '../../components/Contacts';
+import Chat from '../../components/Chat';
 
 const Wrapper = styled.div``;
 
@@ -18,7 +19,7 @@ const ChatInterface = () => {
 			<ChatInterfaceLayout>
 				<div>Header</div>
 				<Contact />
-				<div>ChatInterface</div>
+				<Chat />
 			</ChatInterfaceLayout>
 		</Wrapper>
 	);

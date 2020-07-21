@@ -30,6 +30,27 @@ const Wrapper = styled.div`
 		grid-row: 1/2;
 		border: 1px solid black;
 	}
+
+	.chat-section-container {
+		display: grid;
+		place-items: center;
+		background: #fff;
+		margin-left: 30px;
+		margin-top: 30px;
+		margin-right: 30px;
+		height: 95%;
+	}
+
+	.human-icon-img {
+		margin-top: 50px;
+	}
+
+	.text-section-no-chat {
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		align-self: baseline;
+	}
 `;
 
 const ChatInterfaceLayout = ({ children }) => {
