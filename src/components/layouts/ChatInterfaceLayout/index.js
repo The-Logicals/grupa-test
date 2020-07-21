@@ -17,12 +17,12 @@ const Wrapper = styled.div`
 		grid-column: 2/-1;
 		grid-row: 2/-1;
 		border: 1px solid black;
+		background: #e5e5e5;
 	}
 
 	.contact-section {
 		grid-column: 1/2;
 		grid-row: 1/-1;
-		border: 1px solid black;
 	}
 
 	.header-section {
