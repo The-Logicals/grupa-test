@@ -69,6 +69,12 @@ const Wrapper = styled.div`
 	.drp:hover {
 		cursor: pointer;
 	}
+
+	.btn-drp {
+		outline: none;
+		border: none;
+		background: transparent;
+	}
 `;
 
 const ChatInterfaceLayout = ({ children }) => {
