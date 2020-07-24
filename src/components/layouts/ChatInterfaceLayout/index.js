@@ -28,7 +28,52 @@ const Wrapper = styled.div`
 	.header-section {
 		grid-column: 2/-1;
 		grid-row: 1/2;
-		border: 1px solid black;
+	}
+
+	.header-section-container {
+		display: grid;
+		grid-template-columns: repeat(16, 1fr);
+		align-items: center;
+		height: 100%;
+	}
+
+	.msg-icon {
+		grid-column: 11/12;
+		justify-self: center;
+	}
+
+	.pulse-icon {
+		justify-self: center;
+	}
+
+	.user-fullname {
+		grid-column: 14/16;
+	}
+
+	.profile-pic {
+		justify-self: center;
+	}
+
+	.profile-image {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		border: 1px solid #979797;
+	}
+
+	.user-fullname {
+		font-weight: 500;
+		font-size: 18px;
+	}
+
+	.drp:hover {
+		cursor: pointer;
+	}
+
+	.btn-drp {
+		outline: none;
+		border: none;
+		background: transparent;
 	}
 `;
 
