@@ -75,6 +75,27 @@ const Wrapper = styled.div`
 		border: none;
 		background: transparent;
 	}
+
+	.chat-section-container {
+		display: grid;
+		place-items: center;
+		background: #fff;
+		margin-left: 30px;
+		margin-top: 30px;
+		margin-right: 30px;
+		height: 95%;
+	}
+
+	.human-icon-img {
+		margin-top: 50px;
+	}
+
+	.text-section-no-chat {
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		align-self: baseline;
+	}
 `;
 
 const ChatInterfaceLayout = ({ children }) => {
