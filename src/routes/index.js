@@ -15,11 +15,15 @@ import ErrorBoundary from 'components/error-boundary';
 import Chat from 'pages/Chat';
 import Verify from 'pages/Verify';
 import { onlyAuthUsers } from '../components/HOC/onlyAuthUser';
+import { socketComponent } from '../components/Socket';
 
 /* ---------------------------- Routes PropTypes ---------------------------- */
 const propTypes = {
 	location: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
+
+const SocketComponent = socketComponent(Chat);
+const ChatComponent = onlyAuthUsers(SocketComponent);
 
 const Routes = ({ location }) => (
 	<Wrapper>
@@ -35,7 +39,7 @@ const Routes = ({ location }) => (
 						<Route exact path="/signin" component={Signin} />
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/verify" component={Verify} />
-						<Route exact path="/chat" component={onlyAuthUsers(Chat)} />
+						<Route exact path="/chat" component={ChatComponent} />
 					</Switch>
 				</CSSTransition>
 			</TransitionGroup>
