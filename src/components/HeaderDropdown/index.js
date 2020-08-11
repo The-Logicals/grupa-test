@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 /* -------------------------------------------------------------------------- */
 /*                            Internal Dependencies                           */
 /* -------------------------------------------------------------------------- */
+import OnlineStatus from '../onlineStatus';
 
 /* -------------------------------------------------------------------------- */
 /*                            Image Dependencies                           */
@@ -106,18 +107,6 @@ const Wrapper = styled.div`
 		align-items: center;
 	}
 
-	.online-status {
-		height: 10px;
-		width: 10px;
-		background: #5ed1b3;
-		border-radius: 50%;
-	}
-
-	.online-status-text {
-		margin-left: 10px;
-		font-weight: 500;
-	}
-
 	.dropdown-manage-options-section {
 		padding: 10px 30px;
 	}
@@ -149,8 +138,7 @@ const HeaderDropdown = ({ user, history }) => {
 						<span className="header-email">{user.email}</span>
 					</div>
 					<div className="online-status-container">
-						<div className="online-status" />
-						<span className="online-status-text">Online</span>
+						<OnlineStatus />
 					</div>
 				</div>
 				<div className="topborder dropdown-bio-section">

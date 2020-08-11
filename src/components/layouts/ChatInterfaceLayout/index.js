@@ -16,7 +16,6 @@ const Wrapper = styled.div`
 	.chat-section {
 		grid-column: 2/-1;
 		grid-row: 2/-1;
-		border: 1px solid black;
 		background: #e5e5e5;
 	}
 
@@ -95,6 +94,14 @@ const Wrapper = styled.div`
 		margin-top: 20px;
 		margin-bottom: 20px;
 		align-self: baseline;
+	}
+
+	.chat-box-container {
+		display: grid;
+		grid-template-rows: 70px 1fr 80px;
+		grid-template-columns: 1fr;
+		height: 100%;
+		width: 100%;
 	}
 `;
 
