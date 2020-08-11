@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from '../config';
 
 let token = '';
 
@@ -7,11 +8,11 @@ let token = '';
  */
 const http = () => {
 	if (typeof localStorage !== 'undefined') {
-		token = localStorage.getItem('jwtToken');
+		token = localStorage.getItem('token');
 	}
 
 	const axiosInstance = axios.create({
-		baseURL: 'https://keek-api.herokuapp.com/v1/',
+		baseURL: `${config.BASE_URL_API}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
 			accept: 'application/json',

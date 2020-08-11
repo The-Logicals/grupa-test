@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 /*                            Internal Dependencies                           */
 /* -------------------------------------------------------------------------- */
 import ChatListBtn from '../../Button/chatlistBtn';
+import Loader from '../../Loader';
 
 /* -------------------------------------------------------------------------- */
 /*                            Image Dependencies                           */
@@ -51,24 +52,50 @@ const Wrapper = styled.div`
 		line-height: 27px;
 		color: #000000;
 	}
+
+	.no-contacts {
+		text-align: center;
+	}
 `;
 
-const ChatList = ({ location, contactList }) => {
+const ContactList = ({ contactsList }) => {
+	return contactsList.length ? (
+		contactsList.map((contact) => (
+			<div className="contact-list">
+				<img
+					className="contact-list-image"
+					src={contact.image}
+					alt="contact-img"
+				/>
+				<span className="contact-list-name">{contact.fullname}</span>
+			</div>
+		))
+	) : (
+		<div className="no-contacts"> No Contacts</div>
+	);
+};
+
+ContactList.propTypes = {
+	contactsList: PropTypes.array.isRequired,
+};
+
+const ChatList = ({ location, getContacts, contacts }) => {
+	React.useEffect(() => {
+		getContacts();
+	}, []);
+
+	const contactsLoading = contacts.loading;
+	const contactsList = contacts.contacts;
 	const { action } = qs.parse(location.search.split('?')[1]);
 	return (
 		<Wrapper>
 			<div>
 				{action && action === 'newchat' ? (
-					contactList.map((contact) => (
-						<div className="contact-list">
-							<img
-								className="contact-list-image"
-								src={contact.image}
-								alt="contact-img"
-							/>
-							<span className="contact-list-name">{contact.fullname}</span>
-						</div>
-					))
+					contactsLoading ? (
+						<Loader loading={contactsLoading} />
+					) : (
+						<ContactList contactsList={contactsList} />
+					)
 				) : (
 					<div className="empty-chat-list">
 						<span className="epmty-chat-text">
@@ -86,7 +113,8 @@ const ChatList = ({ location, contactList }) => {
 
 ChatList.propTypes = {
 	location: PropTypes.objectOf(PropTypes.any),
-	contactList: PropTypes.array,
+	getContacts: PropTypes.func.isRequired,
+	contacts: PropTypes.objectOf(PropTypes.any),
 };
 
 export default withRouter(ChatList);

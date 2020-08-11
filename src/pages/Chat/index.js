@@ -3,6 +3,8 @@
 /* -------------------------------------------------------------------------- */
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 /* -------------------------------------------------------------------------- */
 /*                            Internal Dependencies                           */
@@ -11,6 +13,7 @@ import ChatInterfaceLayout from '../../components/layouts/ChatInterfaceLayout';
 import Contact from '../../components/Contacts';
 import Chat from '../../components/Chat';
 import Header from '../../components/Header';
+import { getContacts } from '../../actions/contacts';
 
 const Wrapper = styled.div`
 	.online-status-component {
@@ -20,16 +23,32 @@ const Wrapper = styled.div`
 	}
 `;
 
-const ChatInterface = () => {
+const ChatInterface = (props) => {
+	const { getUserContacts, contacts } = props;
 	return (
 		<Wrapper>
 			<ChatInterfaceLayout>
 				<Header />
-				<Contact />
+				<Contact getContacts={getUserContacts} contacts={contacts} />
 				<Chat />
 			</ChatInterfaceLayout>
 		</Wrapper>
 	);
 };
 
-export default ChatInterface;
+const mapStateToProps = ({ contacts }) => {
+	return {
+		contacts,
+	};
+};
+
+const mapDispatchToProps = {
+	getUserContacts: getContacts,
+};
+
+ChatInterface.propTypes = {
+	getUserContacts: PropTypes.func.isRequired,
+	contacts: PropTypes.objectOf(PropTypes.any),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInterface);
