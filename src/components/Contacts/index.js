@@ -65,14 +65,7 @@ const Wrapper = styled.div`
 	}
 `;
 
-const contactList = [
-	{ image: 'https://picsum.photos/200', fullname: 'Otse Karen' },
-	{ image: 'https://picsum.photos/200', fullname: 'Soji Dan' },
-	{ image: 'https://picsum.photos/200', fullname: 'Vick Vikky' },
-	{ image: 'https://picsum.photos/200', fullname: 'Lex Alex' },
-];
-
-const Contact = ({ location }) => {
+const Contact = ({ location, getContacts, contacts }) => {
 	const { action } = qs.parse(location.search.split('?')[1]);
 
 	const header =
@@ -117,7 +110,7 @@ const Contact = ({ location }) => {
 					</InputGroup>
 				</div>
 				<div className="chat-list-container">
-					<ChatList contactList={contactList} />
+					<ChatList getContacts={getContacts} contacts={contacts} />
 				</div>
 			</div>
 		</Wrapper>
@@ -126,6 +119,8 @@ const Contact = ({ location }) => {
 
 Contact.propTypes = {
 	location: PropTypes.objectOf(PropTypes.any),
+	getContacts: PropTypes.func.isRequired,
+	contacts: PropTypes.objectOf(PropTypes.any),
 };
 
 export default withRouter(Contact);
